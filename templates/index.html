@@ -5,26 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WIR-Citation-Generator</title>
+    <style>
+        textarea {
+            height: 200px;
+        }
+    </style>
 </head>
 
 <body style="text-align: center; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+
     <h1>WIR-Citation-Generator</h1>
     <div style="background-color: green; width: 50%; padding: 1rem 2rem">
         <h3>Usage</h3>
         <ul style="list-style-type: none;">
-            <li>Export .bib-File (e. g. from bibsonomy)</li>
-            <li>Load the .bib-File with with the button ...browse from your file explorer</li>
+            <li>Export .bibTex (e. g. from bibsonomy)</li>
+            <li>Copy from bibsonomy the raw bibtexFile</li>
+            <li>
+                <div style="text-align: left; line-height: 0.5;">
+                    <p>@ARTICLE{Cesar2013,</p>
+                    <p>author = {Jean Paul},</p>
+                    <p>title = {An amazing not so usual title},</p>
+                    <p>year = {2011},</p>
+                    <p>volume = {42},</p>
+                    <p>pages = {21--42},</p>
+                    <p>journal = {Amazing Journal}</p>
+                    <p>}</p>
+                </div>
+            </li>
             <li>Citation will be generated and can be copied</li>
         </ul>
     </div>
     <form method="POST">
         <br />
         <br />
-        <input name="file" type="file" accept=".bib" />
+        <textarea id="textarea" name="file" rows="100" cols="50"></textarea>
+        <span id="char_count">1000/1000</span>
         <br />
         <br />
+        <label>From which year?</label>
+        <input type="number" name="year" />
         <input type="submit" value="Generate Citation">
     </form>
+
 
 </body>
 
