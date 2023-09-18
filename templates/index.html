@@ -8,8 +8,10 @@
     <style>
         textarea {
             height: 200px;
+            width: 80%;
         }
     </style>
+
 </head>
 
 <body style="text-align: center; display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -20,34 +22,48 @@
         <ul style="list-style-type: none;">
             <li>Export .bibTex (e. g. from bibsonomy)</li>
             <li>Copy from bibsonomy the raw bibtexFile</li>
-            <li>
-                <div style="text-align: left; line-height: 0.5;">
-                    <p>@ARTICLE{Cesar2013,</p>
-                    <p>author = {Jean Paul},</p>
-                    <p>title = {An amazing not so usual title},</p>
-                    <p>year = {2011},</p>
-                    <p>volume = {42},</p>
-                    <p>pages = {21--42},</p>
-                    <p>journal = {Amazing Journal}</p>
-                    <p>}</p>
-                </div>
-            </li>
             <li>Citation will be generated and can be copied</li>
         </ul>
+        <button id="button">Show BibTex Example</button>
+        <pre id="example" style="line-height: 1.2rem; display: none; text-align: left; background-color: beige;">
+                    @ARTICLE{Cesar2013,
+                        author = {Jean Paul},
+                            title = {An amazing not so usual title},
+                            year = {2011},
+                            volume = {42},
+                            pages = {21--42},
+                            journal = {Amazing Journal}
+                        }
+                    </pre>
     </div>
     <form method="POST">
         <br />
         <br />
         <textarea id="textarea" name="file" rows="100" cols="50"></textarea>
-        <span id="char_count">1000/1000</span>
         <br />
         <br />
-        <label>From which year?</label>
+        <label>From which year? (until now)</label>
         <input type="number" name="year" />
         <input type="submit" value="Generate Citation">
     </form>
 
 
+    <script>
+        var button = document.getElementById('button'); // Assumes element with id='button'
+
+        button.onclick = function () {
+            var example = document.getElementById('example');
+            console.log("button pressed")
+            if (example.style.display !== 'none') {
+                example.style.display = 'none';
+                button.textContent = "Show BibTex Example"
+            }
+            else {
+                example.style.display = 'block';
+                button.textContent = "Hide BibTex Example"
+            }
+        };
+    </script>
 </body>
 
 </html>
