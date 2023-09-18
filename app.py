@@ -22,5 +22,5 @@ def my_form_post():
         date = currentDateTime.date()
         year = date.strftime("%Y")
 
-    string = parseBibTex(variable, int(year))
-    return string
+    results = parseBibTex(variable, int(year))
+    return render_template("results.html", results=results)

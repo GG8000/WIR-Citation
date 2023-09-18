@@ -14,7 +14,6 @@ def format_author(author_str):
                 author_lastname = author_forname
                 author_forname = helper
             author_forname_initial = author_forname[0]
-
         except:
             author_forname_initial = ""
 
@@ -47,7 +46,7 @@ def parseBibTexToString(file, from_year):
         f"\n\t{len(library.preambles)} preambles"
     )
 
-    formattedString = ""
+    results_arr = []
     for el in library.entries:
         entry = el.fields_dict
         year = entry["year"].value
@@ -58,30 +57,35 @@ def parseBibTexToString(file, from_year):
         journal = ""
         pages = ""
         volume = ""
+
         try:
-            volume = " " + entry["volume"].value + ": "
             pages = " " + entry["pages"].value + "."
+        except:
+            print("Pages not available")
+        try:
+            if not pages:
+                volume = " " + entry["volume"].value + "."
+            else:
+                volume = " " + entry["volume"].value + ": "
+        except:
+            print("Volume not available")
+
+        try:
             journal = " " + entry["journal"].value
             journal = journal.replace("{", "")
             journal = journal.replace("}", "")
         except:
-            print("Volume, journal or pages not available")
-            if not journal:
-                volume = ""
+            print("Journal not available")
+            volume = ""
 
         entryString = f"""{author} ({year}) {title}. {journal}{volume}{pages}"""
-        # entryString = f"""{author} ({year}) {title}. {volume}{pages}."""
 
         if int(year) > from_year - 1:
-            formattedString = f"""
-                {formattedString} <br/> <br/>
-                {entryString}    
-                """
-    # print(formattedString)
-    if formattedString == "":
-        return f"No new publications from {from_year} till now"
-    else:
-        return formattedString
+            results_arr.append(entryString)
+
+    if len(results_arr) == 0:
+        results_arr.append(f"No citations for year {from_year}")
+    return results_arr
 
 
 def parseBibTexToDocx(file):

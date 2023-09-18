@@ -14,27 +14,40 @@
 
 </head>
 
-<body style="text-align: center; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-
+<body style="display: flex; justify-content: center; flex-direction: column;  align-items: center; text-align: center;">
     <h1>WIR-Citation-Generator</h1>
-    <div style="background-color: green; width: 50%; padding: 1rem 2rem">
-        <h3>Usage</h3>
-        <ul style="list-style-type: none;">
-            <li>Export .bibTex (e. g. from bibsonomy)</li>
-            <li>Copy from bibsonomy the raw bibtexFile</li>
+    <div style="background-color: green; width: 50%; padding: 1rem 2rem; border-radius: 2rem; color: white">
+        <h3>Usage of Generator</h3>
+        <ol style="text-align: left;">
+            <li>Export publications from bibsonomy in BibTex Format</li>
+            <li>Copy the raw bibtex Files from bibsonomy</li>
+            <li>Paste in textarea</li>
+            <li>Put in the year from which the citations should be used until now</li>
             <li>Citation will be generated and can be copied</li>
-        </ul>
+        </ol>
         <button id="button">Show BibTex Example</button>
-        <pre id="example" style="line-height: 1.2rem; display: none; text-align: left; background-color: beige;">
-                    @ARTICLE{Cesar2013,
-                        author = {Jean Paul},
+        <div id="example_div" style="position: relative;  display: none; ">
+            <button style="position: absolute; right: 2px; top: 2px" id="copy_btn" onclick="copyExample">
+                Copy example
+            </button>
+            <pre id="example" style=" line-height: 1.2rem; text-align: left; border: 2px solid white;">
+                        @ARTICLE{Cesar2013,
+                            author = {Jean Paul},
                             title = {An amazing not so usual title},
-                            year = {2011},
+                            year = {2013},
                             volume = {42},
                             pages = {21--42},
                             journal = {Amazing Journal}
+                        },
+                        @ARTICLE{Gunther2009,
+                            author = {Gunther Paulmanns},
+                            title = {A wonderful title},
+                            year = {2009},
+                            volume = {11},
+                            journal = {Title of Journal}
                         }
-                    </pre>
+            </pre>
+        </div>
     </div>
     <form method="POST">
         <br />
@@ -43,26 +56,35 @@
         <br />
         <br />
         <label>From which year? (until now)</label>
-        <input type="number" name="year" />
+        <input id="year" type="number" name="year" />
+        <br />
+        <br />
         <input type="submit" value="Generate Citation">
     </form>
 
 
     <script>
-        var button = document.getElementById('button'); // Assumes element with id='button'
+        var button = document.getElementById('button');
+        var textarea = document.getElementById('textarea');
+        var year_input = document.getElementById('year');
 
         button.onclick = function () {
-            var example = document.getElementById('example');
+            var div = document.getElementById('example_div');
             console.log("button pressed")
-            if (example.style.display !== 'none') {
-                example.style.display = 'none';
+            if (div.style.display !== 'none') {
+                div.style.display = 'none';
                 button.textContent = "Show BibTex Example"
             }
             else {
-                example.style.display = 'block';
+                div.style.display = 'block';
                 button.textContent = "Hide BibTex Example"
             }
         };
+
+        document.getElementById("copy_btn").onclick = function () {
+            textarea.textContent = "@ARTICLE{Cesar2013, author = {Jean Paul},title = {An amazing not so usual title},year = {2013}, volume = {42}, pages = {21--42}, journal = {Amazing Journal}},\n@ARTICLE{Gunther2009,author = {Gunther Paulmanns}, title = {A wonderful title},year = {2009}, volume = {11}, journal = {Title of Journal}}"
+            year_input.value = 2003;
+        } 
     </script>
 </body>
 
